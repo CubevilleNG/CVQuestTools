@@ -1,0 +1,23 @@
+name: CVQuestTools
+main: org.cubeville.cvquesttools.CVQuestTools
+authors: [FrediW]
+version: 0.1
+
+depend: [BetonQuest,Citizens,LWC,CVLoadouts]
+
+commands:
+  clearitems:
+    description: Get rid of some items
+    permission: cvquesttools.clearitems
+  findunlocked:
+    description: Find unlocked doors
+    permission: cvquesttools.findunlocked
+  openbook:
+    description: Show book contents to player
+    permission: cvquesttools.openbook
+  clearobbyaltair:
+    description: Clear up players pearl altair
+    permission: cvquesttools.clearobbyaltair
+  tweeclea:
+    permission: cvquesttools.tweeclea
+    description: Clear Twees
