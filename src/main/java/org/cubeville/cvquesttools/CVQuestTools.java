@@ -223,18 +223,18 @@ public class CVQuestTools extends JavaPlugin implements Listener {
         } else if (command.getName().equals("openbook")) {
             Player player = Bukkit.getPlayer(args[0]);
             if (player == null) {
-                sender.sendMessage("not found!");
+                sender.sendMessage("player not found!");
                 return true;
             }
             String loadoutName = args[1];
             LoadoutContainer lc = this.cvloadouts.getLoadoutManager().getLoadoutByName(loadoutName);
             if (lc == null) {
-                sender.sendMessage("not found!");
+                sender.sendMessage("loadout not found!");
                 return true;
             }
             ItemStack book = lc.getMainInventory().getItem(Integer.valueOf(args[2]).intValue());
             if (book == null) {
-                sender.sendMessage("not found!");
+                sender.sendMessage("item in loadout not found!");
                 return true;
             }
             if (book.getType() != Material.WRITTEN_BOOK) {
@@ -245,13 +245,16 @@ public class CVQuestTools extends JavaPlugin implements Listener {
             ItemStack oldItem = player.getInventory().getItem(slot);
             player.getInventory().setItem(slot, book);
             try {
-                PacketContainer pc = ProtocolLibrary.getProtocolManager().createPacket(PacketType.Play.Server.CUSTOM_PAYLOAD);
+                /*PacketContainer pc = ProtocolLibrary.getProtocolManager().createPacket(PacketType.Play.Server.CUSTOM_PAYLOAD);
                 pc.getModifier().writeDefaults();
                 ByteBuf bf = Unpooled.buffer(256);
                 bf.setByte(0, 0);
                 bf.writerIndex(1);
                 pc.getModifier().write(1, MinecraftReflection.getPacketDataSerializer(bf));
                 pc.getStrings().write(0, "MC|BOpen");
+                ProtocolLibrary.getProtocolManager().sendServerPacket(player, pc);*/
+                PacketContainer pc = ProtocolLibrary.getProtocolManager().createPacket(PacketType.Play.Server.OPEN_BOOK);
+                pc.getModifier().writeDefaults();
                 ProtocolLibrary.getProtocolManager().sendServerPacket(player, pc);
             } catch (Exception e) {
                 e.printStackTrace();
